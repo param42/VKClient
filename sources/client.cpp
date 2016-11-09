@@ -1,15 +1,10 @@
-
 #include <curl/curl.h>
 #include <vk/client.hpp>
 #include <vk/json.hpp>
-
-
 #include <iostream>
 
 namespace Vk
 {
-  
-  
     using json = nlohmann::json;
   
     auto Client::check_connection() -> bool
