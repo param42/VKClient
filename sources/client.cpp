@@ -20,9 +20,12 @@ namespace Vk {
 			res = curl_easy_perform(curl);
 			if (res == CURLE_OK) {
 				std::cout << "Connected successfully" << std::endl;
+				curl_easy_cleanup(curl);
 				return true;
 			}
+			
 			curl_easy_cleanup(curl);
+			return false;
 		}
 	};
 }
