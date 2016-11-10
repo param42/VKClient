@@ -1,0 +1,36 @@
+#include <vk/client.hpp>
+#include "validInit.hpp"
+#include "catch.hpp"
+
+SCENARIO("test")
+{
+    GIVEN("invalid token")
+    {
+        std::map<std::string, std::string> invalid_settings{{"token", "097867564gfhjf352435465745g45g5f4f342h7j56hre6j"}};
+
+        WHEN("initialize")
+        {
+            Vk::Client client(invalid_settings);
+
+            THEN("return false")
+            {
+                REQUIRE(!client.check_connection());
+            }
+        }
+    }
+
+    GIVEN("valid token")
+    {
+        std::map<std::string, std::string> valid_settings(get_valid_settings());
+
+        WHEN("initialize")
+        {
+            Vk::Client client(valid_settings);
+
+            THEN("return true")
+            {
+                REQUIRE(client.check_connection());
+            }
+        }
+    }
+}
