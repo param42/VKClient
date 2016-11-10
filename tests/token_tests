@@ -21,7 +21,7 @@ SCENARIO("test")
 
     GIVEN("valid token")
     {
-        std::map<std::string, std::string> valid_settings(get_valid_settings());
+        std::map<std::string, std::string> valid_settings{{"token", "=====valid_token_there"}};
 
         WHEN("initialize")
         {
