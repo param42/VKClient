@@ -1,17 +1,20 @@
-
+#pragma once
 #include <string>
 #include <map>
-
-namespace Vk {
+#include "Json.hpp"
+namespace VK {
 	class Client {
 	public:
+
+		using json = nlohmann::json;
 		using dict_t = std::map<std::string, std::string>;
-
-		Client() {};
-		Client(dict_t settings) : settings_(settings) {};
+		dict_t _settings;
+	
+		Client(dict_t settings);
 		auto check_connection() -> bool;
+		auto get_frientd()->bool;
 
-	private:
-		dict_t settings_;
+		//static int write_callback(char *data, size_t size, size_t nmemb, std::string *buffer);
+		static auto write_callback(char * data, size_t size, size_t nmemb, void * buff)->size_t;
 	};
 }
