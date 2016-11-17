@@ -1,5 +1,5 @@
-
-#include <include/VK/client.hpp>
+#include "stdafx.h"
+#include "client.h"
 #include <curl\curl.h>
 #include <iostream>
 #include <istream>
@@ -41,8 +41,6 @@ namespace VK {
 
 		return result;
 	}
-
-
 
 	auto Client::check_connection()->bool
 	{
@@ -89,7 +87,7 @@ namespace VK {
 	}
 
 
-	auto Client::get_frientd()->bool {
+	auto Client::get_frientd_online()->std::string {
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
@@ -101,17 +99,17 @@ namespace VK {
 			curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errorBuffer);
 			curl_easy_setopt(curl, CURLOPT_URL, "https://api.vk.com/method/friends.getOnline?");
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data_to_send.c_str());
-			//curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, VK::Client::writer);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, VK::Client::write_callback);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
 
 
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
-				std::cout << buffer << std::endl;
+				return buffer;
 			}
 			else {
-				std::cout << "error! " << errorBuffer << std::endl;
+			std::cout << "error! " << errorBuffer << std::endl;
 			}
 
 
