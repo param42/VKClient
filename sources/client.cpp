@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "client.h"
+
+#include "VK/client.hpp"
 #include <curl\curl.h>
 #include <iostream>
 #include <istream>
