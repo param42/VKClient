@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 #include <map>
-#include "VK/json.hpp"
+ 
 namespace VK {
 	class Client {
 	public:
 
-		using json = nlohmann::json;
+		 
 		using dict_t = std::map<std::string, std::string>;
 		dict_t _settings;
 	
