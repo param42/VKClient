@@ -48,7 +48,7 @@ SCENARIO("test")
            }
          }
       }
-      GIVEN("GET_FRIEND_ONLINE")
+      GIVEN("GET_FRIEND_ONLINE_no")
     {
      std::map<std::string, std::string> INvalid_settings{{"token", "b40e14604f5ffc4f3406d6c3dbe0c116477e09d"}};
      WHEN("GET_FRIEND")
