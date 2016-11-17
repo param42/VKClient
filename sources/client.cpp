@@ -5,7 +5,7 @@
 #include <istream>
 #include <string>
 #include <string.h>
-#include "VK/json.hpp"
+
 namespace VK {
 
 	
@@ -107,12 +107,13 @@ namespace VK {
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
 				return buffer;
+				curl_easy_cleanup(curl);
 			}
 			else {
 			std::cout << "error! " << errorBuffer << std::endl;
 			}
 
-
+			return std::string("");
 			curl_easy_cleanup(curl);
 		}
 	}
