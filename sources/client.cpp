@@ -1,11 +1,11 @@
-#include "stdafx.h"
-#include "client.h"
-#include <curl\curl.h>
+ 
+#include "VK/client.hpp"
+#include <curl/curl.h>
 #include <iostream>
 #include <istream>
 #include <string>
 #include <string.h>
-#include "Json.hpp"
+#include "VK/json.hpp"
 namespace VK {
 
 
