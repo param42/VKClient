@@ -1,14 +1,14 @@
-
-#include "VK/client.hpp"
-#include <curl/curl.h>
+#include "stdafx.h"
+#include "client.h"
+#include <curl\curl.h>
 #include <iostream>
 #include <istream>
 #include <string>
 #include <string.h>
-
+#include "Json.hpp"
 namespace VK {
 
-	
+
 	Client::Client(dict_t settings) {
 		_settings = settings;
 	}
@@ -44,7 +44,7 @@ namespace VK {
 
 	auto Client::check_connection()->bool
 	{
-
+	 
 	 	//char* buffer = new char[1];
 		//buffer[0] = '\0';
 		std::string buffer = "";
@@ -62,14 +62,12 @@ namespace VK {
 
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
-
-		
+			
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
-				//std::cout << buffer<<std::endl;
-			 
-				size_t pos = buffer.find("response");
-				if (pos != std::string::npos) {
+
+				json j_response = (json::parse(buffer.c_str()))["response"];
+				if (!j_response.is_null()) {
 					curl_easy_cleanup(curl);
 					return true;
 				}
@@ -77,6 +75,8 @@ namespace VK {
 					curl_easy_cleanup(curl);
 					return false;
 				}
+				std::cout << buffer;
+		
 			}
 			else {
 				std::cout << "error! " << errorBuffer << std::endl;
@@ -87,34 +87,36 @@ namespace VK {
 	}
 
 
-	auto Client::get_frientd_online()->std::string {
+
+	auto Client::get_frientd_online()->std::vector<User>  {
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
 		curl = curl_easy_init();
-
+		
 		if (curl) {
 			std::string data_to_send = "access_token=" + _settings["token"] + "&v=5.59";
 			CURLcode res;
 			curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errorBuffer);
-			curl_easy_setopt(curl, CURLOPT_URL, "https://api.vk.com/method/friends.getOnline?");
+			curl_easy_setopt(curl, CURLOPT_URL, "https://api.vk.com/method/friends.get?fields=name&count=5");
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data_to_send.c_str());
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, VK::Client::write_callback);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
-
-
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
-				return buffer;
-				curl_easy_cleanup(curl);
+			json j_friend = json::parse(buffer.c_str())["response"]["items"];
+						
+			for (json::iterator it = j_friend.begin(); it != j_friend.end(); ++it) {
+				//User* new_user=new User((*it)["first_name"], (*it)["id"]);
+				users.push_back(User((*it)["first_name"], (*it)["id"]));
+			}
+				
+			return users;
 			}
 			else {
 			std::cout << "error! " << errorBuffer << std::endl;
 			}
-
-			return std::string("");
-			curl_easy_cleanup(curl);
 		}
 	}
 	
