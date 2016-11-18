@@ -1,8 +1,8 @@
  
 
-#include "stdafx.h"
-#include <curl\curl.h>
-#include "client.h"
+
+#include <curl/curl.h>
+#include "VK/client.hpp"
 #include <vector>
 
  
