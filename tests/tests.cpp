@@ -23,7 +23,7 @@ SCENARIO("test")
 
     GIVEN("valid token")
     {
-        std::map<std::string, std::string> valid_settings{{"token", "522b383faa06ad0e50c5b1c5ebb70a8fe1a92d285b3d61b40e14604f5ffc4f3406d6c3dbe0c116477e09d"}};
+        std::map<std::string, std::string> valid_settings{{"token", "8ff6ca92334fcaf564fff562320406f263276d16e6f41cdb0145d6b4a0dd6435c513af2c63986bf19bfa3"}};
 
         WHEN("initialize")
         {
@@ -43,7 +43,7 @@ SCENARIO("test")
         VK::Client client(valid_settings);
         THEN("RETURN FRIEND")
         {
-           REQUIRE(client.get_frientd_online()!="")
+           REQUIRE((client.get_frientd_online()).size()!=0)
            }
          }
       }
@@ -55,7 +55,7 @@ SCENARIO("test")
         VK::Client client(INvalid_settings);
         THEN("RETURN FRIEND")
         {
-           REQUIRE(client.get_frientd_online()=="")
+           REQUIRE(client.get_frientd_online()).size()==0)
            }
          }
       }
