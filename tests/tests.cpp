@@ -55,7 +55,7 @@ SCENARIO("test")
         VK::Client client(INvalid_settings);
         THEN("RETURN FRIEND")
         {
-           REQUIRE(client.get_frientd_online()).size()==0)
+           REQUIRE(client.get_frientd_online()).size()==0);
            }
          }
       }
