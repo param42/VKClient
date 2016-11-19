@@ -9,6 +9,7 @@
 
 int main()
 {
+	std::string token = "";
 	setlocale(LC_ALL, "Russian");
 	VK::Client cl({ {"token", token} });
 	
