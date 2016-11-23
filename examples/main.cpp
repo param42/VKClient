@@ -1,7 +1,7 @@
  
 
  #include <curl/curl.h>
-#include "client.h"
+#include "VK/client.hpp"
 #include <vector>
 #include <time.h>
 #include <thread>
