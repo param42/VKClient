@@ -1,6 +1,6 @@
  
 
- #include <curl\curl.h>
+ #include <curl/curl.h>
 #include "client.h"
 #include <vector>
 #include <time.h>
