@@ -37,7 +37,7 @@ namespace VK {
 					json jsn_token = (json::parse(buffer.c_str()))["access_token"];
 
 					if (!jsn_token.is_null()) {
-						std::string tok(jsn_token.begin().value());
+						std::string tok(jsn_token);
 						_settings["token"] = tok;
 					}
 				}
