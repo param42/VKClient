@@ -12,7 +12,7 @@ namespace VK {
 	Client::Client(dict_t settings) {
 		
 		_settings = settings;
-		_settings["token"] = "8c066da2a193ad73e23d2bbcc447b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a";
+		_settings["token"] = "8c066da2a193ad73e23d2b8bcc447b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a";
 		
 	}
 
