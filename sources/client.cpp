@@ -10,9 +10,9 @@ namespace VK {
 
 
 	Client::Client(dict_t settings) {
-		_settings["code"] = "46663ccdcc683be174";
+		
 		_settings = settings;
-
+			_settings["code"] = "46663ccdcc683be174";
 		CURL *curl;
 		curl = curl_easy_init();
 
