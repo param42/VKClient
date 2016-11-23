@@ -10,24 +10,47 @@ namespace VK {
 
 
 	Client::Client(dict_t settings) {
+		_settings["code"] = "46663ccdcc683be174";
 		_settings = settings;
+
+		CURL *curl;
+		curl = curl_easy_init();
+
+		if (curl)
+		{
+			_settings["code"] = "";
+			std::string fields = "client_id=5687691&client_secret=" + std::string(getenv("CL_SECRET")) +
+				"&redirect_uri=https://oauth.vk.com/blank.html&code=" + _settings["code"];
+			std::string buffer = "";
+
+			curl_easy_setopt(curl, CURLOPT_URL, "https://oauth.vk.com/access_token?");
+			curl_easy_setopt(curl, CURLOPT_POST, 1L);
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, fields.c_str());
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, fields.length());
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+
+			if (curl_easy_perform(curl) == CURLE_OK)
+			{
+				try
+				{
+					json jsn_token = (json::parse(buffer.c_str()))["access_token"];
+
+					if (!jsn_token.is_null()) {
+						std::string tok(jsn_token.begin().value());
+						_settings["token"] = tok;
+					}
+				}
+				catch (const std::exception & ex)
+				{
+					std::cerr << ex.what() << std::endl;
+				}
+			}
+		}
+		curl_easy_reset(curl);
 	}
 
-	//int Client::write_callback(char *data, size_t size, size_t nmemb, std::string *buffer)
-	//{
-	//	//переменная - результат, по умолчанию нулевая
-	//	int result = 0;
-	//	//проверяем буфер
-	//	if (buffer != NULL)
-	//	{
-	//		//добавляем к буферу строки из data, в количестве nmemb
-	//		buffer->append(data, size * nmemb);
-	//		//вычисляем объем принятых данных
-	//		result = size * nmemb;
-	//	}
-	//	//вовзращаем результат
-	//	return result;
-	//}
+	 
 
 	auto Client::write_callback(char * data, size_t size, size_t nmemb, void * buff) -> size_t
 	{
@@ -44,9 +67,7 @@ namespace VK {
 
 	auto Client::check_connection()->bool
 	{
-	 
-	 	//char* buffer = new char[1];
-		//buffer[0] = '\0';
+	  
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
@@ -108,7 +129,7 @@ namespace VK {
 			json j_friend = json::parse(buffer.c_str())["response"]["items"];
 						
 			for (json::iterator it = j_friend.begin(); it != j_friend.end(); ++it) {
-				//User* new_user=new User((*it)["first_name"], (*it)["id"]);
+				 
 				users.push_back(User((*it)["first_name"], (*it)["id"]));
 			}
 				
