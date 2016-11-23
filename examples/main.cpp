@@ -27,14 +27,14 @@ int main()
 		std::cout << "____" << std::endl;
 	}
 
-	FRTThread ft(users);
+	//FRTThread ft(users);
 	
-		if (ft.cin()) {
-			std::cout << "all_threads_end" << std::endl;
-		}
-		else {
-			std::cout << "error";
-		}
+	//	if (ft.cin()) {
+	//		std::cout << "all_threads_end" << std::endl;
+	//	}
+	//	else {
+	//		std::cout << "error";
+	//	}
 
 
 		system("pause");
