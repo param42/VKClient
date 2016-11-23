@@ -18,7 +18,7 @@ namespace VK {
 
 		if (curl)
 		{
-			_settings["code"] = "";
+			 
 			std::string fields = "client_id=5687691&client_secret=" + std::string(getenv("CL_SECRET")) +
 				"&redirect_uri=https://oauth.vk.com/blank.html&code=" + _settings["code"];
 			std::string buffer = "";
