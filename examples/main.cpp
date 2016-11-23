@@ -1,29 +1,41 @@
  
 
-
-#include <curl/curl.h>
-#include "VK/client.hpp"
+ #include <curl\curl.h>
+#include "client.h"
 #include <vector>
+#include <time.h>
+#include <thread>
+#include <future>
+#include <chrono>
+#include "FRTThread.hpp"
+std::string token = "127961f2d122ca42393fd8b9++++de04489e7cd785bb";
 
  
 
 int main()
 {
-	std::string token = "";
-	setlocale(LC_ALL, "Russian");
-	VK::Client cl({ {"token", token} });
-	
+	VK::Client cl({ { "token", token } });
+	std::vector<VK::User>users;
 	if (cl.check_connection()) {
-		std::vector<VK::User>users;
-			users=cl.get_frientd_online();
+		 
+		users = cl.get_frientd_online();
 
 
-			for (int i = 0; i < users.size(); i++) {
-				std::cout << users[i].id << std::endl;
-			}
-
+		for (int i = 0; i < users.size(); i++) {
+			std::cout << users[i].id << std::endl;
+		}
+		std::cout << "____" << std::endl;
 	}
-		
+
+	FRTThread ft(users);
+	
+		if (ft.cin()) {
+			std::cout << "all_threads_end" << std::endl;
+		}
+		else {
+			std::cout << "error";
+		}
+
 
 		system("pause");
 		return 0;
