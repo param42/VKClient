@@ -22,8 +22,8 @@ SCENARIO("test")
     }
 
     GIVEN("valid token")
-    {
-        std::map<std::string, std::string> valid_settings{{"token", "8c066da2a193ad73e23d2bbcc447b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a"}};
+   {
+        std::map<std::string, std::string> valid_settings{{"token", "8c066da2a193ad73e23d2bbcc4479b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a"}};
 
         WHEN("initialize")
         {
@@ -37,7 +37,7 @@ SCENARIO("test")
     }
     GIVEN("GET_FRIEND_ONLINE")
     {
-     std::map<std::string, std::string> valid_settings{{"token", "8c066da2a193ad73e23d2bbcc447b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a"}};
+     std::map<std::string, std::string> valid_settings{{"token", "8c066da2a193ad73e23d2bbcc9447b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a"}};
      WHEN("GET_FRIEND")
      {
         VK::Client client(valid_settings);
