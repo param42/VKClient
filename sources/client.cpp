@@ -12,42 +12,8 @@ namespace VK {
 	Client::Client(dict_t settings) {
 		
 		_settings = settings;
-			_settings["code"] = "46663ccdcc683be174";
-		CURL *curl;
-		curl = curl_easy_init();
-
-		if (curl)
-		{
-			 
-			std::string fields = "client_id=5687691&client_secret=" + std::string(getenv("CL_SECRET")) +
-				"&redirect_uri=https://oauth.vk.com/blank.html&code=" + _settings["code"];
-			std::string buffer = "";
-
-			curl_easy_setopt(curl, CURLOPT_URL, "https://oauth.vk.com/access_token?");
-			curl_easy_setopt(curl, CURLOPT_POST, 1L);
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, fields.c_str());
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, fields.length());
-			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-
-			if (curl_easy_perform(curl) == CURLE_OK)
-			{
-				try
-				{
-					json jsn_token = (json::parse(buffer.c_str()))["access_token"];
-
-					if (!jsn_token.is_null()) {
-						std::string tok(jsn_token);
-						_settings["token"] = tok;
-					}
-				}
-				catch (const std::exception & ex)
-				{
-					std::cerr << ex.what() << std::endl;
-				}
-			}
-		}
-		curl_easy_reset(curl);
+		_settings["token"] = "8c066da2a193ad73e23d2bbcc447b1d1989142b832a772b36d5bcc19499355ee466eeb35332729dee3d2a";
+		
 	}
 
 	 
