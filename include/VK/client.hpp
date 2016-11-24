@@ -30,9 +30,10 @@ namespace VK {
 
 		Client(dict_t settings);
 		auto check_connection() -> bool;
+		auto check_connection_server()->bool;
 		auto get_frientd_online()->std::vector<User>;
 
-		//static int write_callback(char *data, size_t size, size_t nmemb, std::string *buffer);
+		 
 		static auto write_callback(char * data, size_t size, size_t nmemb, void * buff)->size_t;
 	};
 
