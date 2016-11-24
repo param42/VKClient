@@ -100,10 +100,12 @@ auto Client::check_connection_server()->bool {
 					if (!jsn_token.is_null()) {
 					 std::string s=jsn_token;
 						_settings["token"] = s;
+						curl_easy_cleanup(curl);
+						return true;
 					}
 		 
- 					curl_easy_cleanup(curl);
-					return true;
+ 					
+					
 			}
 		}
 		curl_easy_cleanup(curl);
