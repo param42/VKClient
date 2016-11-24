@@ -33,7 +33,8 @@ namespace VK {
 		auto check_connection_server()->bool;
 		auto get_frientd_online()->std::vector<User>;
 
-		 
+ 
+		
 		static auto write_callback(char * data, size_t size, size_t nmemb, void * buff)->size_t;
 	};
 
