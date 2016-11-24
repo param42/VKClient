@@ -82,13 +82,15 @@ auto Client::check_connection_server()->bool {
 		std::string buffer = "";
 		if (curl)
 		{
-			
-			std::string URL = "https://oauth.vk.com/access_token?client_id=5687691&client_secret=XZ3RUDfY&redirect_uri=https://oauth.vk.com/blank.html&code=";	
-			URL += _settings["code"];
-			curl_easy_setopt(curl, CURLOPT_URL, URL);
+			  std::string fields = "client_id=5687691&client_secret=XZ3RUDfY"  +
+                                 "&redirect_uri=https://oauth.vk.com/blank.html&code=" + _settings["code"];
+		
+			curl_easy_setopt(curl, CURLOPT_URL, "https://oauth.vk.com/access_token?");
+			curl_easy_setopt(_curl, CURLOPT_POSTFIELDS, fields.c_str());
+            		curl_easy_setopt(_curl, CURLOPT_POSTFIELDSIZE, fields.length());
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, VK::Client::write_callback);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-			std::cout << buffer << std::endl;
+			 
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
 				json jsn_token = (json::parse(buffer.c_str()))["access_token"];
