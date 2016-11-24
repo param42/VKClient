@@ -7,7 +7,7 @@
 SCENARIO("test")
 {
  
- VK::Client invalide_client({{"code", "_____¯\_(ツ)_/¯______ "}});
+ VK::Client invalide_client({{"code", "456546"}});
  VK::Client valide_client({{"code", "4956ba777a10520805"}});
  
     GIVEN("invalid token")
