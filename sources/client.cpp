@@ -82,8 +82,8 @@ auto Client::check_connection_server()->bool {
 		std::string buffer = "";
 		if (curl)
 		{
-			  std::string fields = "client_id=5687691&client_secret=XZ3RUDfY"  +
-                                 "&redirect_uri=https://oauth.vk.com/blank.html&code=" + _settings["code"];
+			  std::string fields = "client_id=5687691&client_secret=XZ3RUDfY&redirect_uri=https://oauth.vk.com/blank.html&code="  +
+                            + _settings["code"];
 		
 			curl_easy_setopt(curl, CURLOPT_URL, "https://oauth.vk.com/access_token?");
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, fields.c_str());
