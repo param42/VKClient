@@ -7,8 +7,11 @@
 SCENARIO("test")
 {
  
- VK::Client invalide_client({{"code", "456546"}});
- VK::Client valide_client({{"code", "4956ba777a10520805"}});
+ std::string invalid_code="3423424";
+ std::string valid_code="4956ba777a10520805";
+ 
+ VK::Client invalide_client({{"code", invalid_code}});
+ VK::Client valide_client({{"code", valid_code}});
  
     GIVEN("invalid token")
     {        
