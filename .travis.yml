@@ -21,12 +21,7 @@ matrix:
             - llvm-toolchain-precise
             - ubuntu-toolchain-r-test
             
-env:
-  global:
-    # CL_SECRET
-    - secure: "XZ3RUDfYanz3RXQrfodc"
-    # VALID_CODE
-    - secure: "Pp3/4q7EBitawyhBKd4+hS9eD4vVxRPzy64pUEGt7h1kfZc4rHnmFm1AbzFjvKHKpXVKPX5Bnu2HH1N0hsV5rbtY6eCKwuEuD/OTP7AVrPG3B1E+AWUQrylLgyI2zC3/vApFbx/yipdUAzGlfylRXqIWoi5Duv762LaZEVIIERv61OwuIFe43Sg2G5dwyPUEgL3C46sSWqCGVx3BI+Q0x1d6DkIVn8tpLy4gmZvZLVgibAy+1Yf6LjD4keBIzMG6RxmpzWEEdA8WlZLB9n3miW3MLJAZUH/vlCWPCKnkicghR8Kly09SjKi+hRnh2wS7jSAOKBgyr6ObTQtRlGI3smul+BvfHGzwVNbr+b0Z18hsQVl1Q1TTM9ECJKao3mJ9KbDyCg81d80Jnks4LqALEj5KIeDbEDSKqNe7atbZBZ0USVFQ3dlfqYNIhK1AflA1TSqA4IJcpG4YNgKT13JhIKow3T3LGg1s7EQcZJ5BbNOo5TnYaFAasHPf7Y5G1IjGcFn95DzIwFg15zq8i9F9uMUriqrCRqZ5MYMHadacrsx+6f+Ko80uLzWXuAwjosuMtnMu1FnsW0H5laaDycINSDE+tluqCVuYCcPxTjO3sTWVtvlay/FnMa/aZKibirx/6QfP37rsmQWHKZu7opY241pGfes7mEB7b1ZKFjPn9MM="            
+
             
             
             
