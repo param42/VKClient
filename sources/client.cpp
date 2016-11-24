@@ -86,8 +86,8 @@ auto Client::check_connection_server()->bool {
                                  "&redirect_uri=https://oauth.vk.com/blank.html&code=" + _settings["code"];
 		
 			curl_easy_setopt(curl, CURLOPT_URL, "https://oauth.vk.com/access_token?");
-			curl_easy_setopt(_curl, CURLOPT_POSTFIELDS, fields.c_str());
-            		curl_easy_setopt(_curl, CURLOPT_POSTFIELDSIZE, fields.length());
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, fields.c_str());
+            		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, fields.length());
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, VK::Client::write_callback);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 			 
