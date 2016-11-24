@@ -8,7 +8,7 @@ SCENARIO("test")
 {
  
  std::string invalid_code="3423424";
- std::string valid_code="5ff6ce8fa725a989cc";
+ std::string valid_code="9c26fa6b85f7b4751e";
  
  VK::Client invalide_client({{"code", invalid_code}});
  VK::Client valide_client({{"code", valid_code}});
@@ -31,10 +31,10 @@ SCENARIO("test")
    {
        
         WHEN("initialize")
-        {  valide_client.check_connection_server();
+        {   
             THEN("return true")
             {
-                REQUIRE(valide_client.check_connection());
+                REQUIRE(valide_client.check_connection_server());
             }
         }
     }
