@@ -8,17 +8,18 @@ SCENARIO("test")
 {
  
  std::string invalid_code="3423424";
- std::string valid_code="df95682d7c6045648b";
+ std::string valid_code="5ff6ce8fa725a989cc";
  
  VK::Client invalide_client({{"code", invalid_code}});
  VK::Client valide_client({{"code", valid_code}});
  
-            valide_client.check_connection_server();
+             
  
     GIVEN("invalid token")
     {        
         WHEN("initialize")
         {     
+         
             THEN("return false")
             {
                 REQUIRE(!invalide_client.check_connection_server());
@@ -30,7 +31,7 @@ SCENARIO("test")
    {
        
         WHEN("initialize")
-        {  
+        {  valide_client.check_connection_server();
             THEN("return true")
             {
                 REQUIRE(valide_client.check_connection());
