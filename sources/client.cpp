@@ -9,11 +9,11 @@
 namespace VK {
 
 
-	Client::Client(dict_t settings) {	
-		_settings = settings;	
+	Client::Client(dict_t settings) {
+		_settings = settings;
 	}
 
-	 
+
 
 	auto Client::write_callback(char * data, size_t size, size_t nmemb, void * buff) -> size_t
 	{
@@ -30,7 +30,7 @@ namespace VK {
 
 	auto Client::check_connection()->bool
 	{
-	  
+
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
@@ -46,7 +46,7 @@ namespace VK {
 
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
-			
+
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
 
@@ -60,7 +60,7 @@ namespace VK {
 					return false;
 				}
 				std::cout << buffer;
-		
+
 			}
 			else {
 				std::cout << "error! " << errorBuffer << std::endl;
@@ -70,7 +70,7 @@ namespace VK {
 
 	}
 
-auto Client::check_connection_server()->bool {
+	auto Client::check_connection_server()->bool {
 
 		if (_settings["code"] == "") {
 			std::cout << "NOT_CODE" << std::endl;
@@ -82,30 +82,30 @@ auto Client::check_connection_server()->bool {
 		std::string buffer = "";
 		if (curl)
 		{
-		
-		
-		  std::string fields = "client_id=5687691&client_secret=XZ3RUDfY&redirect_uri=https://oauth.vk.com/blank.html&code=";
-                  fields+=_settings["code"];
-		
+
+
+			std::string fields = "client_id=5687691&client_secret=XZ3RUDfY&redirect_uri=https://oauth.vk.com/blank.html&code=";
+			fields += _settings["code"];
+
 			curl_easy_setopt(curl, CURLOPT_URL, "https://oauth.vk.com/access_token?");
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, fields.c_str());
-            		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, fields.length());
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, fields.length());
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, VK::Client::write_callback);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-			 
+
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
 				json jsn_token = (json::parse(buffer.c_str()))["access_token"];
-				 
-					if (!jsn_token.is_null()) {
-					 std::string s=jsn_token;
-						_settings["token"] = s;
-						curl_easy_cleanup(curl);
-						return true;
-					}
-		 
- 					
-					
+
+				if (!jsn_token.is_null()) {
+					std::string s = jsn_token;
+					_settings["token"] = s;
+					curl_easy_cleanup(curl);
+					return true;
+				}
+
+
+
 			}
 		}
 		curl_easy_cleanup(curl);
@@ -114,12 +114,12 @@ auto Client::check_connection_server()->bool {
 
 	}
 
-	auto Client::get_frientd_online()->std::vector<User>  {
+	auto Client::get_frientd_online()->std::vector<User> {
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
 		curl = curl_easy_init();
-		
+
 		if (curl) {
 			std::string data_to_send = "access_token=" + _settings["token"] + "&v=5.59";
 			CURLcode res;
@@ -131,19 +131,19 @@ auto Client::check_connection_server()->bool {
 
 			if (curl_easy_perform(curl) == CURLE_OK)
 			{
-			json j_friend = json::parse(buffer.c_str())["response"]["items"];
-						
-			for (json::iterator it = j_friend.begin(); it != j_friend.end(); ++it) {
-				 
-				users.push_back(User((*it)["first_name"], (*it)["id"]));
-			}
-				
-			return users;
+				json j_friend = json::parse(buffer.c_str())["response"]["items"];
+
+				for (json::iterator it = j_friend.begin(); it != j_friend.end(); ++it) {
+
+					users.push_back(User((*it)["first_name"], (*it)["id"]));
+				}
+
+				return users;
 			}
 			else {
-			std::cout << "error! " << errorBuffer << std::endl;
+				std::cout << "error! " << errorBuffer << std::endl;
 			}
 		}
 	}
-	
+
 }
