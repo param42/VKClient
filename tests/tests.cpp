@@ -52,7 +52,7 @@ SCENARIO("test")
      
      WHEN("GET_FRIEND")
      {
-        VK::Client client(INvalid_settings);
+        
         THEN("RETURN FRIEND")
         {
            REQUIRE(invalide_client.get_frientd_online().size()==0);
