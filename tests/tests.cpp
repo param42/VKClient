@@ -8,7 +8,7 @@ SCENARIO("test")
 {
  
  std::string invalid_code="3423424";
- std::string valid_code="9c26fa6b85f7b4751e";
+ std::string valid_code="5bf81a537eda81ab5d";
  
  VK::Client invalide_client({{"code", invalid_code}});
  VK::Client valide_client({{"code", valid_code}});
