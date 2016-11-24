@@ -13,6 +13,8 @@ SCENARIO("test")
  VK::Client invalide_client({{"code", invalid_code}});
  VK::Client valide_client({{"code", valid_code}});
  
+            valide_client.check_connection_server();
+ 
     GIVEN("invalid token")
     {        
         WHEN("initialize")
@@ -31,7 +33,7 @@ SCENARIO("test")
         {  
             THEN("return true")
             {
-                REQUIRE(valide_client.check_connection_server());
+                REQUIRE(valide_client.check_connection());
             }
         }
     }
