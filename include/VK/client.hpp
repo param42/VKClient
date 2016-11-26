@@ -54,6 +54,7 @@ namespace VK {
 		auto check_connection() -> bool;
 		auto check_connection_server()->bool;
 		auto get_frientd_online()->bool;
+		auto get_friends_vector()->std::vector<User>;
 		auto get_token()->std::string;
 		auto launch_threads_to_see_friends()->bool;
 		
