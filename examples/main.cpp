@@ -25,9 +25,9 @@ int main()
  
 	if(client.check_connection_server()) {
 
-		client.get_frientd_online();
+		if(client.get_frientd_online()){
 		client.launch_threads_to_see_friends();
-		 
+		}
 
 	}
 	system("pause");
