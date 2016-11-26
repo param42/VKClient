@@ -19,7 +19,7 @@ int main()
 	  std::cout << "code = ";
 	  std::cin >> code;
 
-	string code = "5952e9a4a442556837";
+	 
 	VK::Client client({ { "code", code } });
 	 
  
