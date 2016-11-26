@@ -13,7 +13,7 @@ option(BUILD_TESTS "Build tests for webdavclient" ON)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
 
 add_library(${PROJECT_NAME} STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/client.cpp)
-add_library(${"Threads"} STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/FRTThread.cpp)
+add_library("Threads" STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/FRTThread.cpp)
 
 find_package(OpenSSL REQUIRED)
 find_package(CURL REQUIRED)
