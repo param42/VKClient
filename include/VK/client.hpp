@@ -3,6 +3,8 @@
 #include <map>
 #include <vector>
 #include "VK/json.hpp"
+#include <thread>
+#include <mutex>
 namespace VK {
 
 	class User {
