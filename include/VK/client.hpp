@@ -53,7 +53,7 @@ namespace VK {
 		Client(dict_t settings);
 		auto check_connection() -> bool;
 		auto check_connection_server()->bool;
-		auto get_frientd_online()->std::vector<User>;
+		auto get_frientd_online()->bool;
 		auto get_token()->std::string;
 		auto launch_threads_to_see_friends()->bool;
 		
