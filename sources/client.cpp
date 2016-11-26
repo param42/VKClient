@@ -189,7 +189,7 @@ namespace VK {
 
 	auto FRTThread::print_one_friend(int id)->void {
 		do {
-			mutex.lock();
+			std::lock_guard<std::mutex> lk(mutex); 
 			if (counter < users.size()) {
 				if (v) {
 					std::cout << "number_of_thread: " << id << std::endl << "thread_id " << std::this_thread::get_id() << std::endl << "USER ID:" << users[counter].id << std::endl << std::endl;
@@ -199,7 +199,6 @@ namespace VK {
 				}
 			}
 			++counter;
-			mutex.unlock();
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 
 		} while (counter < users.size());
