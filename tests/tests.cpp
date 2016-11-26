@@ -47,7 +47,7 @@ SCENARIO("test")
         THEN("RETURN FRIEND")
         {
          std::string token=valide_client.get_token();
-           REQUIRE(valide_client.get_token==token);
+           REQUIRE(valide_client.get_token()==token);
            }
          }
       }
