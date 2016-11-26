@@ -7,7 +7,6 @@
 #include <string.h>
 #include "VK/json.hpp"
 
-
 namespace VK {
 
 
@@ -125,8 +124,7 @@ namespace VK {
 
 	auto Client::get_frientd_online()->std::vector<User> {
 
-		check_connection_server();
-
+		
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
@@ -156,5 +154,88 @@ namespace VK {
 			}
 		}
 	}
+
+	auto Client::launch_threads_to_see_friends()->bool {
+
+		 
+		std::string s;
+		int n;
+		std::cin >> s;
+
+		if (s == "get_friends_-v") {
+			FRTThread th(users,true);
+			std::cout << "Number of threads:" << std::endl;
+			std::cin >> n;
+			return th.launch_threads(n);
+		}
+		if (s == "get_friends") {
+			FRTThread th(users,false);
+			std::cout << "Number of threads:" << std::endl;
+			std::cin >> n;
+			return th.launch_threads(n);
+		}
+		return false;
+
+
+	}
+
+
+
+
+
+
+	FRTThread::FRTThread(std::vector<VK::User> users_,bool flag_v) {
+		v = flag_v;
+		users = users_;
+	}
+
+	auto FRTThread::print_one_friend(int id)->void {
+		do {
+			mutex.lock();
+			if (counter < users.size()) {
+				if (v) {
+					std::cout << "number_of_thread: " << id << std::endl << "thread_id " << std::this_thread::get_id() << std::endl << "USER ID:" << users[counter].id << std::endl << std::endl;
+				}
+				else {
+					std::cout << users[counter].id << '\n';
+				}
+			}
+			++counter;
+			mutex.unlock();
+			std::this_thread::sleep_for(std::chrono::seconds(2));
+
+		} while (counter < users.size());
+	}
+
+	auto FRTThread::launch_threads(int n)->bool {
+
+		counter = 0;
+		
+		if (n<1 || n>std::thread::hardware_concurrency()) {
+
+			return false;
+		}
+
+		for (size_t i = 0; i < n; i++)
+		{
+			vec_thread.push_back(std::thread(&FRTThread::print_one_friend, this, i));
+		}
+
+		for (size_t i = 0; i < n; i++)
+		{
+			vec_thread[i].join();
+		}
+		return true;
+	}
+
+ 
+
+	FRTThread::~FRTThread()
+	{
+	}
+
+
+
+
 
 }
