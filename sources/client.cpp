@@ -122,7 +122,7 @@ namespace VK {
 
 	}
 
-	auto Client::get_frientd_online()->std::vector<User> {
+	auto Client::get_frientd_online()->bool {
 
 		
 		std::string buffer = "";
@@ -147,11 +147,12 @@ namespace VK {
 					users.push_back(User((*it)["first_name"], (*it)["id"]));
 				}
 
-				return users;
+				return true;
 			}
 			else {
 				std::cout << "error! " << errorBuffer << std::endl;
 			}
+			return false;
 		}
 	}
 
