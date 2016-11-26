@@ -1,7 +1,6 @@
  
 #include "FRTThread.hpp"
 
-
 FRTThread::FRTThread(std::vector<VK::User> users_) {
 users = users_;
 }
@@ -34,7 +33,7 @@ auto FRTThread::launch_threads(int n)->bool {
 
 	for (size_t i = 0; i < n; i++)
 	{
-		vec_thread.push_back(std::thread(&FRTThread::print_one_friend, this, i));
+		vec_thread.push_back(std::thread( &FRTThread::print_one_friend, this, i));
 	}
 
 	for (size_t i = 0; i < n; i++)
@@ -45,7 +44,7 @@ auto FRTThread::launch_threads(int n)->bool {
 }
 
 auto FRTThread::cin()->bool{
-
+	
 	std::string s;
 int n;
 std::cin >> s;
