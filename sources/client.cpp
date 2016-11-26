@@ -31,6 +31,7 @@ namespace VK {
 
 	auto Client::check_connection()->bool
 	{
+		if (_settings["token"] == "")return false;
 
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
@@ -74,13 +75,13 @@ namespace VK {
 	}
 
 	auto Client::get_token()->std::string {
-		if(_settings["token"]!="")
-		return _settings["token"];
+		if (_settings["token"] != "")
+			return _settings["token"];
 	}
 
 	auto Client::check_connection_server()->bool {
 
-		if(_settings["code"]=="")return false;
+		if (_settings["code"] == "")return false;
 
 		CURL *curl;
 		curl = curl_easy_init();
@@ -104,13 +105,11 @@ namespace VK {
 
 				if (!jsn_token.is_null()) {
 					std::string s = jsn_token;
-					_settings["token"] = s;
-					std::cout<<s<<std::endl;
+					_settings["token"] = s;		
 					curl_easy_cleanup(curl);
-					 
-				}
 
-			return true;
+				}
+				return true;
 
 			}
 		}
@@ -119,12 +118,16 @@ namespace VK {
 
 
 	}
-auto Client::get_friends_vector()->std::vector<User> {
-		return users;
+
+	auto Client::get_friends_vector()->std::vector<User> {
+		if(users.size()!=0)return users;	 
 	}
+
 	auto Client::get_frientd_online()->bool {
- 		check_connection_server();
-		if(_settings["token"]=="") return false;
+
+	 
+		check_connection_server();
+		if (_settings["token"] == "") return false;
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
@@ -146,38 +149,32 @@ auto Client::get_friends_vector()->std::vector<User> {
 
 					users.push_back(User((*it)["first_name"], (*it)["id"]));
 				}
-
 				return true;
 			}
 			else {
-				std::cout << "error! " << errorBuffer << std::endl;
+				std::cout << "error!" << errorBuffer << std::endl;
 			}
 			return false;
 		}
 	}
 
-	auto Client::launch_threads_to_see_friends()->bool {
+	auto Client::launch_threads_to_see_friends(bool flagv)->bool {
+ 
+			FRTThread th(users, flagv);	
 
-		 
-		std::string s;
-		int n;
-		std::cin >> s;
+			try {
+				int number_of_threads;
+				std::cout << "Enter_number_of_threads:" << std::endl;
+				std::cin >> number_of_threads;
+				if (!std::cin) throw std::invalid_argument("Wrong command");
 
-		if (s == "get_friends_-v") {
-			FRTThread th(users,true);
-			std::cout << "Number of threads:" << std::endl;
-			std::cin >> n;
-			return th.launch_threads(n);
-		}
-		if (s == "get_friends") {
-			FRTThread th(users,false);
-			std::cout << "Number of threads:" << std::endl;
-			std::cin >> n;
-			return th.launch_threads(n);
-		}
-		return false;
-
-
+				return th.launch_threads(number_of_threads);
+				 
+			}
+			catch (const std::invalid_argument& e) {
+				std::cerr << e.what() << std::endl;
+			}
+			return false;
 	}
 
 
@@ -185,7 +182,7 @@ auto Client::get_friends_vector()->std::vector<User> {
 
 
 
-	FRTThread::FRTThread(std::vector<VK::User> users_,bool flag_v) {
+	FRTThread::FRTThread(std::vector<VK::User> users_, bool flag_v) {
 		v = flag_v;
 		users = users_;
 	}
@@ -211,7 +208,7 @@ auto Client::get_friends_vector()->std::vector<User> {
 	auto FRTThread::launch_threads(int n)->bool {
 
 		counter = 0;
-		
+
 		if (n<1 || n>std::thread::hardware_concurrency()) {
 
 			return false;
@@ -229,7 +226,7 @@ auto Client::get_friends_vector()->std::vector<User> {
 		return true;
 	}
 
- 
+
 
 	FRTThread::~FRTThread()
 	{
