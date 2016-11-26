@@ -47,7 +47,7 @@ SCENARIO("test")
         THEN("RETURN FRIEND")
         {
           
-           REQUIRE(valide_client.get_frientd_online().size()!=0);
+           REQUIRE(valide_client.get_frientd_online());
            }
          }
       }
