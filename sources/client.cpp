@@ -80,7 +80,7 @@ namespace VK {
 
 	auto Client::check_connection_server()->bool {
 
-		 
+		if(_settings["code"]=="")return false;
 
 		CURL *curl;
 		curl = curl_easy_init();
