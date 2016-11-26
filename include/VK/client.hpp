@@ -5,6 +5,8 @@
 #include "VK/json.hpp"
 #include <thread>
 #include <mutex>
+
+
 namespace VK {
 
 	class User {
@@ -12,7 +14,7 @@ namespace VK {
 
 		std::string name;
 		int id;
-		User(std::string namee,  int idd) {
+		User(std::string namee, int idd) {
 			name = namee;
 			id = idd;
 		}
@@ -26,7 +28,7 @@ namespace VK {
 		int counter = 0;
 		std::mutex mutex;
 		bool v;
-		 
+
 		std::vector<std::thread> vec_thread;
 
 		FRTThread(std::vector<VK::User> users_, bool flag_v);
@@ -34,7 +36,7 @@ namespace VK {
 
 		auto print_one_friend(int id)->void;
 		auto launch_threads(int n)->bool;
-		 
+
 
 		~FRTThread();
 	};
@@ -56,8 +58,8 @@ namespace VK {
 		auto get_frientd_online()->bool;
 		auto get_friends_vector()->std::vector<User>;
 		auto get_token()->std::string;
-		auto launch_threads_to_see_friends()->bool;
-		
+		auto launch_threads_to_see_friends(bool flagv)->bool;
+
 		static auto write_callback(char * data, size_t size, size_t nmemb, void * buff)->size_t;
 	};
 
