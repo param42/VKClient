@@ -17,8 +17,18 @@ int main()
 	std::cout << "Для получения code пройдите по данному url:" << std::endl;
 	std::cout << "https://oauth.vk.com/authorize?client_id=5687691&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=code&v=5.60" << std::endl;
 	std::cout << "code = ";
-	std::cin >> code;
-	 
+	try {
+		std::cin >> code;
+		if (!std::cin) throw std::invalid_argument("Wrong command");
+		
+	}  catch (const std::invalid_argument& e)
+		
+		{
+		 std::cerr << e.what() << std::endl;
+		}
+	
+	
+	
 	VK::Client client({ { "code", code } });
 	if (client.check_connection_server()) {
 		std::cout << "the connection is successful" << std::endl;
