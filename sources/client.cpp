@@ -80,10 +80,7 @@ namespace VK {
 
 	auto Client::check_connection_server()->bool {
 
-		if (_settings["code"] == "") {
-			std::cout << "NOT_CODE" << std::endl;
-			return false;
-		}
+		 
 
 		CURL *curl;
 		curl = curl_easy_init();
@@ -110,10 +107,10 @@ namespace VK {
 					_settings["token"] = s;
 					std::cout<<s<<std::endl;
 					curl_easy_cleanup(curl);
-					return true;
+					 
 				}
 
-
+			return true;
 
 			}
 		}
@@ -126,7 +123,7 @@ auto Client::get_friends_vector()->std::vector<User> {
 		return users;
 	}
 	auto Client::get_frientd_online()->bool {
-		std::cout<<_settings["token"]<<std::endl;
+ 		
 		if(_settings["token"]=="") return false;
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
