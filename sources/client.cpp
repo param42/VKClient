@@ -108,6 +108,7 @@ namespace VK {
 				if (!jsn_token.is_null()) {
 					std::string s = jsn_token;
 					_settings["token"] = s;
+					std::cout<<s<<std::endl;
 					curl_easy_cleanup(curl);
 					return true;
 				}
