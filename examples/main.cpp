@@ -21,13 +21,14 @@ int main()
 	VK::Client client({ { "code", code } });
 
 	if(client.check_connection_server()) {
-
-		FRTThread threads_friends(client.get_frientd_online());
-
+		std::vector<VK::User> users;
+		users=client.get_frientd_online();
+		FRTThread threads_friends(users);
 		threads_friends.cin();
 
 	}
-		system("pause");
-		return 0;
-	}
+	system("pause");
+	return 0;
+ 
+}
 
