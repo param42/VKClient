@@ -6,6 +6,8 @@
 #include <string>
 #include <string.h>
 #include "VK/json.hpp"
+
+
 namespace VK {
 
 
@@ -53,10 +55,12 @@ namespace VK {
 				json j_response = (json::parse(buffer.c_str()))["response"];
 				if (!j_response.is_null()) {
 					curl_easy_cleanup(curl);
+					std::cout << j_response << std::endl;
 					return true;
 				}
 				else {
 					curl_easy_cleanup(curl);
+					std::cout << buffer << std::endl;
 					return false;
 				}
 				std::cout << buffer;
@@ -68,6 +72,11 @@ namespace VK {
 			curl_easy_cleanup(curl);
 		}
 
+	}
+
+	auto Client::get_token()->std::string {
+		if(_settings["token"]!="")
+		return _settings["token"];
 	}
 
 	auto Client::check_connection_server()->bool {
@@ -115,6 +124,9 @@ namespace VK {
 	}
 
 	auto Client::get_frientd_online()->std::vector<User> {
+
+		check_connection_server();
+
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
 		CURL *curl;
@@ -122,7 +134,6 @@ namespace VK {
 
 		if (curl) {
 			std::string data_to_send = "access_token=" + _settings["token"] + "&v=5.59";
-			CURLcode res;
 			curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errorBuffer);
 			curl_easy_setopt(curl, CURLOPT_URL, "https://api.vk.com/method/friends.get?fields=name&count=5");
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data_to_send.c_str());
