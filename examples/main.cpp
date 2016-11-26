@@ -7,24 +7,27 @@
 #include <thread>
 #include <future>
 #include <chrono>
-#include "VK/FRTThread.hpp"
-
+ 
  
 
 int main()
 	
-{	std::string code;
-	std::cout << "Для получения code пройдите по данному url:" << std::endl;
-	std::cout << "https://oauth.vk.com/authorize?client_id=5454862&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=code&v=5.60" << std::endl;
-	std::cout << "code = ";
-	std::cin >> code;
-	VK::Client client({ { "code", code } });
+{	
+	  std::string code;
+	  std::cout << "Для получения code пройдите по данному url:" << std::endl;
+	  std::cout << "https://oauth.vk.com/authorize?client_id=5454862&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=code&v=5.60" << std::endl;
+	  std::cout << "code = ";
+	  std::cin >> code;
 
+	string code = "5952e9a4a442556837";
+	VK::Client client({ { "code", code } });
+	 
+ 
 	if(client.check_connection_server()) {
-		std::vector<VK::User> users;
-		users=client.get_frientd_online();
-		FRTThread threads_friends(users);
-		threads_friends.cin();
+
+		client.get_frientd_online();
+		client.launch_threads_to_see_friends();
+		 
 
 	}
 	system("pause");
