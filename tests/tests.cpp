@@ -8,7 +8,7 @@ SCENARIO("test")
 {
  
  std::string invalid_code="3423424";
- std::string valid_code="5bf81a537eda81ab5d";
+ std::string valid_code="6224dd689ad6e28510";
  
  VK::Client invalide_client({{"code", invalid_code}});
  VK::Client valide_client({{"code", valid_code}});
@@ -46,7 +46,8 @@ SCENARIO("test")
        
         THEN("RETURN FRIEND")
         {
-           REQUIRE(valide_client.get_frientd_online().size()!=0);
+         std::string token=valide_client.get_token();
+           REQUIRE(valide_client.get_token==token);
            }
          }
       }
