@@ -125,7 +125,7 @@ auto Client::get_friends_vector()->std::vector<User> {
 		return users;
 	}
 	auto Client::get_frientd_online()->bool {
-
+		check_connection_server();
 		if(_settings["token"]=="") return false;
 		std::string buffer = "";
 		char errorBuffer[CURL_ERROR_SIZE];
