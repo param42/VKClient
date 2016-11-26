@@ -26,7 +26,7 @@ SCENARIO("test")
        
         WHEN("initialize")
         {   
-         std::string valid_code="1699cfe3d13409d2с9";
+         std::string valid_code="6b2f9с490781f45ecb";
         VK::Client valide_client({{"code", valid_code}});
             THEN("return true")
             {
@@ -40,7 +40,7 @@ SCENARIO("test")
      WHEN("initialize")
      {
         
-       std::string valid_code="1699cfe3d13409d2c9";
+       std::string valid_code="6b2f9c490781f45ecb";
        VK::Client valide_client({{"code", valid_code}});
  
         THEN("RETURN FRIEND")
