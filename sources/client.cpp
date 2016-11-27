@@ -220,6 +220,7 @@ namespace VK {
 
 		for (size_t i = 0; i < n; i++)
 		{
+			if(vec_thread[i].joinable())
 			vec_thread[i].join();
 		}
 		return true;
