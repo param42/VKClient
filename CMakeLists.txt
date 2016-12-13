@@ -1,19 +1,18 @@
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 2.8)
 
-set(SERVICE "VK")
 
 project(${SERVICE}Client)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11")
 
 option(BUILD_SHARED_LIBS "Build shared instead of static library" OFF)
-option(BUILD_TESTS "Build tests for webdavclient" ON)
+option(BUILD_TESTS "Build tests for webdavclient" OFF)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
 
 add_library(${PROJECT_NAME} STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/client.cpp)
- 
 
 find_package(OpenSSL REQUIRED)
 find_package(CURL REQUIRED)
@@ -26,8 +25,10 @@ set(DEPENDS_LIBRARIES ${OPENSSL_LIBRARIES} ${CURL_LIBRARY} ws2_32)
 endif()
 
 add_executable(Examples ${CMAKE_CURRENT_SOURCE_DIR}/examples/main.cpp)
+add_executable(Counter ${CMAKE_CURRENT_SOURCE_DIR}/examples/counter.cpp)
 
-target_link_libraries(Examples ${PROJECT_NAME} ${DEPENDS_LIBRARIES})
+target_link_libraries(Examples ${PROJECT_NAME} ${DEPENDS_LIBRARIES} pthread)
+target_link_libraries(Counter ${PROJECT_NAME} ${DEPENDS_LIBRARIES} boost_system)
 
 if(BUILD_TESTS)
     enable_testing()
